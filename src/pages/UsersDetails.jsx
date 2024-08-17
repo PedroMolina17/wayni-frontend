@@ -47,13 +47,27 @@ const UserDetail = () => {
 
   const handleSave = async (field) => {
     try {
-      const updatedUser = { ...user, [field]: fieldValue };
+      const updatedUser = { ...user };
+
+      if (field === "password") {
+        updatedUser.password = passwordValue;
+      } else {
+        updatedUser[field] = fieldValue;
+      }
+
       await updateUser(id, updatedUser);
+
       setUser(updatedUser);
+
       setIsNameModalOpen(false);
       setIsUsernameModalOpen(false);
       setIsEmailModalOpen(false);
       setIsNumberModalOpen(false);
+      setIsPasswordModalOpen(false);
+
+      if (field === "password") {
+        setPasswordValue("");
+      }
     } catch (error) {
       console.error("Error updating user:", error);
     }
@@ -160,6 +174,7 @@ const UserDetail = () => {
       />
       <PasswordModal
         isOpen={isPasswordModalOpen}
+        data={user.password}
         onClose={() => setIsPasswordModalOpen(false)}
         onSave={() => handleSave("password")}
         passwordValue={passwordValue}

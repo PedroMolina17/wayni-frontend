@@ -47,14 +47,14 @@ const EditModal = ({
           <FaArrowLeft onClick={handleClose} />
         </div>
       </div>
-      <div className="p-4 rounded flex flex-col pt-20">
+      <div className="p-4 rounded flex flex-col justify-between h-screen pt-20 pb-8">
         <label className="flex flex-col gap-3">
           <p className="text-xs">{title}</p>
           <input
             type="text"
             value={value}
             onChange={onChange}
-            className="border border-gray-300 p-2 w-full"
+            className="border border-gray-300 p-2 w-full focus:border-[#79c8eb] focus:border-2 focus:outline-none rounded-md"
             {...inputProps}
           />
           {errorEmail && title === "Email" && (
@@ -66,7 +66,7 @@ const EditModal = ({
         </label>
         <div className="flex justify-end mt-4">
           <button
-            className="bg-[#bbe982] text-black px-4 py-2 rounded-xl flex w-full justify-center items-center"
+            className="bg-[#bbe982] text-black px-4 py-2 rounded-xl flex w-full justify-center items-center shadow-md shadow-[#6da02b]"
             onClick={handleSave}
           >
             Save

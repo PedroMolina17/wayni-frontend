@@ -1,23 +1,107 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { FaCheckCircle } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa6";
-
-const PasswordModal = ({ isOpen, onClose, onSave }) => {
+const PasswordModal = ({
+  isOpen,
+  onClose,
+  onSave,
+  data,
+  passwordValue,
+  onPasswordChange,
+}) => {
   const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errorCurrentPassword, setErrorCurrentPassword] = useState(false);
+  const [errorMatchPassword, setErrorMatchPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordSuccess, setPasswordSuccess] = useState({
+    hasUppercase: false,
+    lengthValid: false,
+  });
+
+  useEffect(() => {
+    if (!isOpen) {
+      setCurrentPassword("");
+      setConfirmPassword("");
+      setErrorCurrentPassword(false);
+      setErrorMatchPassword("");
+      setPasswordError("");
+      setPasswordSuccess({
+        hasUppercase: false,
+        lengthValid: false,
+      });
+    }
+  }, [isOpen]);
+
+  const validatePassword = (password) => {
+    const minLength = 6;
+    const maxLength = 18;
+    const hasUppercase = /[A-Z]/.test(password);
+    const lengthValid =
+      password.length >= minLength && password.length <= maxLength;
+
+    return {
+      hasUppercase,
+      lengthValid,
+    };
+  };
+
+  const handlePasswordChange = (e) => {
+    const password = e.target.value;
+    onPasswordChange(e);
+    const validation = validatePassword(password);
+    setPasswordSuccess({
+      hasUppercase: validation.hasUppercase,
+      lengthValid: validation.lengthValid,
+    });
+
+    if (!validation.hasUppercase) {
+      setPasswordError("Password must include at least one uppercase letter.");
+    } else if (!validation.lengthValid) {
+      setPasswordError(`Password must be between 6 and 18 characters.`);
+    } else {
+      setPasswordError("");
+    }
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    const password = e.target.value;
+    setConfirmPassword(password);
+
+    if (passwordValue !== password) {
+      setErrorMatchPassword("Passwords do not match.");
+    } else {
+      setErrorMatchPassword("");
+    }
+  };
 
   const handleSave = () => {
-    if (newPassword !== confirmPassword) {
-      setError("Passwords do not match.");
-    } else {
-      onSave();
-      setCurrentPassword("");
-      setNewPassword("");
-      setConfirmPassword("");
-      setError("");
-      onClose();
+    if (currentPassword !== data) {
+      setErrorCurrentPassword(true);
+      return;
     }
+
+    if (passwordValue !== confirmPassword) {
+      setErrorMatchPassword("Passwords do not match.");
+      return;
+    }
+
+    if (passwordError) {
+      setErrorMatchPassword(passwordError);
+      return;
+    }
+
+    onSave();
+    setCurrentPassword("");
+    setConfirmPassword("");
+    setErrorMatchPassword("");
+    setPasswordError("");
+    setPasswordSuccess({
+      hasUppercase: false,
+      lengthValid: false,
+    });
+    setErrorCurrentPassword(false);
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -42,25 +126,47 @@ const PasswordModal = ({ isOpen, onClose, onSave }) => {
             className="border border-gray-300 p-2 w-full"
           />
         </label>
+        {errorCurrentPassword && (
+          <p className="text-red-500 text-xs mt-2">
+            Current password is incorrect.
+          </p>
+        )}
         <label className="flex flex-col gap-3 mt-4">
           <p className="text-xs">New Password</p>
           <input
             type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            value={passwordValue}
+            onChange={handlePasswordChange}
             className="border border-gray-300 p-2 w-full"
           />
+          {passwordError && (
+            <p className="text-red-500 text-xs">{passwordError}</p>
+          )}
+          {passwordSuccess.hasUppercase && (
+            <p className="text-green-600 text-xs flex items-center gap-1">
+              <FaCheckCircle />
+              <span>Password contains at least one uppercase letter.</span>
+            </p>
+          )}
+          {passwordSuccess.lengthValid && (
+            <p className="text-green-600 text-xs flex items-center gap-1">
+              <FaCheckCircle />
+              <span>Password length is valid (6-18 characters).</span>
+            </p>
+          )}
         </label>
         <label className="flex flex-col gap-3 mt-4">
           <p className="text-xs">Confirm New Password</p>
           <input
             type="password"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={handleConfirmPasswordChange}
             className="border border-gray-300 p-2 w-full"
           />
+          {errorMatchPassword && (
+            <p className="text-red-500 text-xs mt-2">{errorMatchPassword}</p>
+          )}
         </label>
-        {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
         <div className="flex justify-end mt-4">
           <button
             className="bg-[#bbe982] text-black px-4 py-2 rounded-xl flex w-full justify-center items-center"
