@@ -30,4 +30,4 @@ pnpm run dev
 
 ### Mobile Recording Demo
 
-You can watch the demo video [here](https://www.youtube.com/watch?v=-bXIa4vSJz8).
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-bXIa4vSJz8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
