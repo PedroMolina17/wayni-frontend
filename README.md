@@ -23,5 +23,11 @@ VITE_API_URL=http://localhost:5101/api
 
 ### 4. Start the Development Server
 ```bash
-pnpm dev
+pnpm run dev
 ```
+
+## Demo Video
+
+### Mobile Recording Demo
+
+You can watch the demo video [here](https://www.youtube.com/watch?v=-bXIa4vSJz8).
