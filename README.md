@@ -30,4 +30,4 @@ pnpm run dev
 
 ### Mobile Recording Demo
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-bXIa4vSJz8?si=KFycdbkh8vLeIpkR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+https://github.com/user-attachments/assets/c3d09491-9be0-4a24-ba9f-0775891fd918
