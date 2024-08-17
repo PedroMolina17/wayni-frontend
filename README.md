@@ -1,8 +1,33 @@
-# React + Vite
+# Wayni Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Setup Instructions
 
-Currently, two official plugins are available:
+### 1. Clone the Repository
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+git clone https://github.com/PedroMolina17/wayni-frontend.git
+```
+
+### 2. Install Dependencies
+
+```bash
+cd wayni-frontend
+pnpm install
+```
+
+### 3. Configure Environment Variable
+
+```bash
+VITE_API_URL=http://localhost:5101/api
+```
+
+### 4. Start the Development Server
+```bash
+pnpm run dev
+```
+
+## Demo Video
+
+### Mobile Recording Demo
+
+https://github.com/user-attachments/assets/c3d09491-9be0-4a24-ba9f-0775891fd918
