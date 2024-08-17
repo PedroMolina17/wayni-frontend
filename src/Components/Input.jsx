@@ -1,13 +1,13 @@
-import { FaArrowRight } from "react-icons/fa";
+import { IoIosArrowForward } from "react-icons/io";
 
 const Input = ({ title, data }) => {
   return (
-    <button className="flex justify-between items-center border p-4 w-96">
-      <div className="flex flex-col items-center justify-center">
-        <div>{title}</div>
+    <button className="flex justify-between items-center border  border-[#e3f3fc] p-4 w-full bg-white">
+      <div className="flex flex-col  justify-center">
+        <div className="text-start font-bold ">{title}</div>
         <p className="text-start w-full"> {data}</p>
       </div>
-      <FaArrowRight></FaArrowRight>
+      <IoIosArrowForward></IoIosArrowForward>
     </button>
   );
 };
